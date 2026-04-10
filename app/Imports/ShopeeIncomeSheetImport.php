@@ -12,7 +12,7 @@ class ShopeeIncomeSheetImport implements ToCollection
     {
         foreach ($rows->slice(6) as $row) {
 
-            if (!$row[3]) continue;
+            if (!isset($row[3]) || !$row[3]) continue;
 
             Transaction::create([
                 'customer' => $row[3],

@@ -20,5 +20,6 @@ class Transaction extends Model
         'shipping_provider',
         'courier',
         'is_refund',
+        'platform'
     ];
 }

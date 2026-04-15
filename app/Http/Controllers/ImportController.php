@@ -6,28 +6,37 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ShopeeImport;
+use App\Imports\TokopediaImport;
 
 class ImportController extends Controller
 {
     public function index()
     {
-        $data = Transaction::orderBy('id', 'asc')->get();
+        $data = Transaction::orderBy('id', 'desc')->get();
         return view('transactions', compact('data'));
     }
 
     public function import(Request $request)
     {
-        $platform = $request->platform;
+        try {
+            ini_set('memory_limit', '512M');
 
-        if ($platform == 'shopee') {
-            Excel::import(new ShopeeImport, $request->file('file'));
+            $platform = $request->platform;
+
+            if ($platform == 'shopee') {
+                Excel::import(new ShopeeImport, $request->file('file'));
+            }
+
+            if ($platform == 'tokopedia') {
+                Excel::import(new TokopediaImport, $request->file('file'));
+            }
+
+            return redirect('/transactions')->with('success', 'Import berhasil');
+
+        } catch (\Exception $e) {
+
+            return redirect('/transactions')->with('error', 'waduh, filenya ga cocok. Coba lagi');
         }
-
-        // nanti tinggal tambahin:
-        // else if ($platform == 'tokopedia') { ... }
-        // else if ($platform == 'accurate') { ... }
-
-        return redirect('/transactions')->with('success', 'Import berhasil');
     }
 
     public function deleteAll()

@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('shipping_provider')->nullable();
             $table->string('courier')->nullable(); // Ditambahkan karena ada di import
             $table->boolean('is_refund')->default(false); // Ditambahkan karena ada di import
+            $table->string('platform')->nullable();
 
             $table->timestamps();
         });

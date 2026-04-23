@@ -1,20 +1,19 @@
-import { AppContent } from '@/components/app-content';
-import { AppShell } from '@/components/app-shell';
-import { AppSidebar } from '@/components/app-sidebar';
-import { AppSidebarHeader } from '@/components/app-sidebar-header';
 import type { AppLayoutProps } from '@/types';
+import { Head } from '@inertiajs/react';
+import { TheCuratorSidebar } from '@/components/the-curator-sidebar';
+import { TheCuratorHeader } from '@/components/the-curator-header';
 
 export default function AppSidebarLayout({
     children,
     breadcrumbs = [],
 }: AppLayoutProps) {
     return (
-        <AppShell variant="sidebar">
-            <AppSidebar />
-            <AppContent variant="sidebar" className="overflow-x-hidden">
-                <AppSidebarHeader breadcrumbs={breadcrumbs} />
+        <div className="min-h-screen bg-background text-on-background antialiased font-bold font-body">
+            <TheCuratorSidebar />
+            <TheCuratorHeader />
+            <main className="ml-64 pt-24 px-8 pb-12 space-y-10">
                 {children}
-            </AppContent>
-        </AppShell>
+            </main>
+        </div>
     );
 }

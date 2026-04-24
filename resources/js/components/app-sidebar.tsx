@@ -1,9 +1,7 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import { Link, router } from '@inertiajs/react';
+import { Home, FileText, LayoutGrid, LogOut, Plus, ShoppingBasket } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
 import {
     Sidebar,
     SidebarContent,
@@ -15,31 +13,29 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
+import { Button } from '@/components/ui/button';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
-        icon: LayoutGrid,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
+        icon: Home,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Transactions',
+        href: '/transactions',
+        icon: ShoppingBasket,
+    },
+    {
+        title: 'Analytics',
+        href: '/analytics',
+        icon: FileText,
     },
 ];
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon" variant="inset" className="bg-[#fcfcfd]">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -54,11 +50,25 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+                <div className="px-4 mt-2">
+                    <Button className="w-full justify-start bg-[#009b7c] hover:bg-[#008168] text-white rounded-md font-semibold font-medium h-10 shadow-sm" onClick={() => alert('Import Data Clicked')}>
+                        <Plus className="mr-2 h-5 w-5" />
+                        Import Data
+                    </Button>
+                </div>
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
-                <NavUser />
+                <div className="px-4 pb-4">
+                    <Button 
+                        variant="ghost" 
+                        className="w-full justify-start bg-red-100/50 hover:bg-red-100 text-red-500 font-medium h-10 rounded-md"
+                        onClick={() => router.post('/logout')}
+                    >
+                        <LogOut className="mr-2 h-5 w-5" />
+                        Leave
+                    </Button>
+                </div>
             </SidebarFooter>
         </Sidebar>
     );

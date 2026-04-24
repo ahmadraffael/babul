@@ -12,8 +12,22 @@ class ImportController extends Controller
 {
     public function index()
     {
-        $data = Transaction::orderBy('id', 'desc')->get();
-        return view('dashboard', compact('data'));
+        return inertia('dashboard', [
+            'data' => Transaction::all()
+        ]);
+    }
+
+    public function analytics()
+    {
+        $data = Transaction::all();
+        return inertia('analytics', [
+            'data' => $data
+        ]);
+    }
+
+    public function importPage()
+    {
+        return inertia('import-data');
     }
 
     public function import(Request $request)
@@ -42,7 +56,7 @@ class ImportController extends Controller
     public function transactions()
     {
         $data = \App\Models\Transaction::latest()->get();
-        return view('transactions', compact('data'));
+        return inertia('transactions', ['data' => $data]);
     }
 
     public function deleteAll()

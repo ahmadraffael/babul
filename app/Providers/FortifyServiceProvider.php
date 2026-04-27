@@ -51,6 +51,8 @@ class FortifyServiceProvider extends ServiceProvider
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'canRegister' => Features::enabled(Features::registration()),
             'status' => $request->session()->get('status'),
+            'title' => 'Dashboard Babulsyifa',
+            'description' => 'Provide your credentials to authenticate into the Babulsyifa dashboard environment.'
         ]));
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/reset-password', [

@@ -1,4 +1,4 @@
-import { Link, usePage, router } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 export function TheCuratorSidebar() {
     const { url, props } = usePage<any>();
@@ -9,19 +9,19 @@ export function TheCuratorSidebar() {
         return url.startsWith(path);
     };
 
-    const handleLogout = (e: React.FormEvent) => {
-        e.preventDefault();
-        router.post('/logout');
-    };
-
     const activeClass = "bg-primary text-white rounded-full px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 shadow-lg shadow-primary/20";
     const inactiveClass = "text-secondary hover:bg-surface-container-highest rounded-full px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 hover:pl-6";
 
     return (
         <aside className="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low z-50 flex flex-col p-6 gap-8 border-r border-surface-container-high">
-            <div className="flex flex-col gap-1">
-                <h1 className="text-xl font-bold tracking-tight text-primary">The Curator</h1>
-                <p className="text-xs text-on-surface-variant font-medium uppercase tracking-widest">Financial Studio</p>
+            <div className="flex items-center gap-3 px-2 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <span className="material-symbols-outlined font-bold text-xl">draw</span>
+                </div>
+                <div>
+                    <h1 className="text-xl font-bold tracking-tight text-primary">Dashboard</h1>
+                    <p className="text-xs text-on-surface-variant font-medium uppercase tracking-widest">Babul Syifa</p>
+                </div>
             </div>
             
             <nav className="flex flex-col gap-2">
@@ -43,28 +43,24 @@ export function TheCuratorSidebar() {
                 </Link>
             </nav>
             
-            <div className="mt-auto pt-6 flex flex-col gap-6">
-                <button className="w-full bg-primary text-white rounded-full py-3 font-bold text-sm tracking-wide transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
+            <div className="mt-auto pt-6">
+                <button className="w-full bg-primary-container text-on-primary-container rounded-full py-3 font-bold text-sm tracking-wide transition-transform active:scale-95">
                     Generate Report
                 </button>
                 
-                <div className="flex items-center justify-between gap-3 px-2">
+                <div className="mt-8 flex items-center justify-between gap-2 px-1">
                     <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                            <span className="material-symbols-outlined text-primary">person</span>
+                        <div className="w-10 h-10 shrink-0 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">
+                            {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                         </div>
                         <div className="flex flex-col overflow-hidden">
-                            <span className="text-sm font-bold text-on-surface truncate">{user?.name || 'Guest'}</span>
-                            <span className="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter truncate">Studio Member</span>
+                            <span className="text-sm font-bold text-on-surface truncate">{user?.name || 'User'}</span>
+                            <span className="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter truncate">{user?.email || 'admin@example.com'}</span>
                         </div>
                     </div>
-                    <button 
-                        onClick={handleLogout}
-                        className="w-10 h-10 rounded-full hover:bg-error-container/20 group transition-all flex items-center justify-center shrink-0"
-                        title="Logout"
-                    >
-                        <span className="material-symbols-outlined text-on-surface-variant group-hover:text-error transition-colors">logout</span>
-                    </button>
+                    <Link href="/logout" method="post" as="button" className="shrink-0 p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors flex items-center justify-center">
+                        <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>logout</span>
+                    </Link>
                 </div>
             </div>
         </aside>

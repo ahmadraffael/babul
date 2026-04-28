@@ -72,11 +72,11 @@ export default function Transactions({ data = [], filters = {} }: { data: any[],
                                         </td>
                                         <td className="py-3 px-4 text-center">
                                             {row.platform?.toLowerCase() === 'shopee' ? (
-                                                <span className="inline-flex items-center py-1 px-3 rounded-md bg-tertiary/10 text-tertiary text-xs font-bold">
+                                                <span className="inline-flex items-center py-1 px-3 rounded-md bg-shopee/10 text-shopee text-xs font-bold">
                                                     Shopee
                                                 </span>
                                             ) : (
-                                                <span className="inline-flex items-center py-1 px-2.5 rounded-md bg-primary/10 text-primary text-xs font-bold">
+                                                <span className="inline-flex items-center py-1 px-2.5 rounded-md bg-tokopedia/10 text-tokopedia text-xs font-bold">
                                                     Tokopedia
                                                 </span>
                                             )}

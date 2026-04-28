@@ -72,8 +72,8 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
 
     const getPlatformColor = (name: string, idx: number) => {
         const n = name.toLowerCase();
-        if (n === 'shopee') return 'bg-orange-500';
-        if (n === 'tokopedia') return 'bg-primary';
+        if (n === 'shopee') return 'bg-shopee';
+        if (n === 'tokopedia') return 'bg-tokopedia';
         return idx === 0 ? 'bg-primary' : idx === 1 ? 'bg-secondary' : 'bg-tertiary';
     };
 

@@ -64,7 +64,7 @@ export default function Analytics({ data = [], period = 30 }: { data: any[], per
                             <option value="30">Last 30 Days</option>
                             <option value="all">All Time</option>
                         </select>
-                        <a href={`/export?period=${period}`} className="bg-primary text-white px-6 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+                        <a href={`/export?period=${period}`} className="bg-primary text-white px-6 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 shadow-md shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
                             <span className="material-symbols-outlined">download</span>
                             Export Report
                         </a>
@@ -75,7 +75,7 @@ export default function Analytics({ data = [], period = 30 }: { data: any[], per
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
                         { label: 'Gross Revenue', value: `Rp ${totalRevenue.toLocaleString('id-ID')}`, color: 'primary', trend: 'Total', progress: revenueProgress, icon: 'payments' },
-                        { label: 'Operating Fees', value: `Rp ${totalFees.toLocaleString('id-ID')}`, color: 'error', trend: `${feesProgress}%`, progress: feesProgress, icon: 'receipt_long' },
+                        { label: 'Operating Fees', value: `Rp ${totalFees.toLocaleString('id-ID')}`, color: 'tertiary', trend: `${feesProgress}%`, progress: feesProgress, icon: 'receipt_long' },
                         { label: 'Net Income', value: `Rp ${netRevenue.toLocaleString('id-ID')}`, color: 'secondary', trend: `${netProgress}%`, progress: netProgress, icon: 'account_balance_wallet' }
                     ].map((metric, i) => (
                         <div key={i} className="group bg-surface-container-lowest p-8 rounded-[2.5rem] border border-surface-container-high transition-all hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5">
@@ -114,7 +114,7 @@ export default function Analytics({ data = [], period = 30 }: { data: any[], per
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Baseline</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-primary shadow-lg shadow-primary/30"></div>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Active</span>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ export default function Analytics({ data = [], period = 30 }: { data: any[], per
                                     <div key={i} className="flex-1 group relative flex flex-col justify-end h-full">
                                         <div 
                                             style={{ height: `${(val / maxTrend) * 100}%` }} 
-                                            className={`w-full rounded-t-xl transition-all duration-700 ${i === trendData.length - 1 ? 'bg-primary shadow-xl shadow-primary/30' : 'bg-surface-container-highest/50 hover:bg-primary/20'}`}
+                                            className={`w-full rounded-t-xl transition-all duration-700 ${i === trendData.length - 1 ? 'bg-primary' : 'bg-surface-container-highest/50 hover:bg-primary/20'}`}
                                         ></div>
                                         
                                         {/* Tooltip */}

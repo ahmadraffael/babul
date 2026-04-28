@@ -13,7 +13,7 @@ export default function Transactions({ data = [], filters = {} }: { data: any[],
                     <h2 className="text-xl font-bold text-on-surface">Transaction Reports</h2>
                     <div className="flex items-center gap-3">
                         <select 
-                            className="bg-surface-container-highest px-4 py-2 rounded-full text-sm font-bold text-on-surface hover:bg-surface-dim transition-colors appearance-none outline-none cursor-pointer"
+                            className="border border-surface-container-high bg-surface-container-lowest px-4 py-2 rounded-full text-sm font-bold text-on-surface hover:bg-surface-dim transition-colors appearance-none outline-none cursor-pointer"
                             onChange={(e) => router.get('/transactions', { ...filters, platform: e.target.value }, { preserveState: true })}
                             defaultValue={filters?.platform || 'all'}
                         >

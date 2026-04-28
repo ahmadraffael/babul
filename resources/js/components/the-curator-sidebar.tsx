@@ -9,17 +9,17 @@ export function TheCuratorSidebar() {
         return url.startsWith(path);
     };
 
-    const activeClass = "bg-primary text-white rounded-full px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 shadow-lg shadow-primary/20";
-    const inactiveClass = "text-secondary hover:bg-surface-container-highest rounded-full px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 hover:pl-6";
+    const activeClass = "bg-primary text-white rounded-xl px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90";
+    const inactiveClass = "text-outline hover:bg-surface-container-highest rounded-xl px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 hover:pl-6";
 
     return (
-        <aside className="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low z-50 flex flex-col p-6 gap-8 border-r border-surface-container-high">
+        <aside className="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-lowest z-50 flex flex-col p-6 gap-8 border-r border-surface-container-high">
             <div className="flex items-center gap-3 px-2 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                    <span className="material-symbols-outlined font-bold text-xl">draw</span>
+                <div className="w-10 h-10 rounded-xl bg-[#007AFB] text-white flex items-center justify-center">
+                    <span className="text-xl">P</span>
                 </div>
                 <div>
-                    <h1 className="text-xl font-bold tracking-tight text-primary">Dashboard</h1>
+                    <h1 className="text-xl font-bold tracking-tight text-on-surface">PT HBAJ</h1>
                     <p className="text-xs text-on-surface-variant font-medium uppercase tracking-widest">Babul Syifa</p>
                 </div>
             </div>
@@ -44,11 +44,16 @@ export function TheCuratorSidebar() {
             </nav>
             
             <div className="mt-auto pt-6">
-                <a href="/export" className="block text-center w-full bg-primary-container text-on-primary-container rounded-full py-3 font-bold text-sm tracking-wide transition-transform active:scale-95">
+                {/* <a href="/export" className="block text-center w-full bg-primary-container text-on-primary-container rounded-full py-3 font-bold text-sm tracking-wide transition-transform active:scale-95">
                     Generate Report
-                </a>
+                </a> */}
+
+                <Link href="/logout" method='post' as='button' className="w-full text-outline hover:bg-tertiary/10 hover:text-tertiary rounded-xl px-4 py-2 flex items-center gap-3 transition-all scale-95 active:scale-90 hover:pl-6">
+                    <span className="material-symbols-outlined">logout</span>
+                    <span className="font-medium">Logout</span>
+                </Link>
                 
-                <div className="mt-8 flex items-center justify-between gap-2 px-1">
+                {/* <div className="mt-8 flex items-center justify-between gap-2 px-1">
                     <div className="flex items-center gap-3 overflow-hidden">
                         <div className="w-10 h-10 shrink-0 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">
                             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
@@ -61,7 +66,7 @@ export function TheCuratorSidebar() {
                     <Link href="/logout" method="post" as="button" className="shrink-0 p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors flex items-center justify-center">
                         <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>logout</span>
                     </Link>
-                </div>
+                </div> */}
             </div>
         </aside>
     );

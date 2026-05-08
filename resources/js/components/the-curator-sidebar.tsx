@@ -33,6 +33,10 @@ export function TheCuratorSidebar() {
                     <span className="material-symbols-outlined">receipt_long</span>
                     <span className="font-medium">Transactions</span>
                 </Link>
+                <Link href="/customer" className={isActive('/customer') ? activeClass : inactiveClass}>
+                    <span className="material-symbols-outlined">person</span>
+                    <span className="font-medium">Customer</span>
+                </Link>
                 <Link href="/analytics" className={isActive('/analytics') ? activeClass : inactiveClass}>
                     <span className="material-symbols-outlined">analytics</span>
                     <span className="font-medium">Analytics</span>

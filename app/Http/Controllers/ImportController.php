@@ -138,6 +138,11 @@ class ImportController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+    public function customer()
+    {
+        return inertia('customer');
+    }
+
     public function deleteAll()
     {
         Transaction::truncate();

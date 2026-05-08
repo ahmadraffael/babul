@@ -23,19 +23,19 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
     data.forEach(item => {
         const plat = item.platform || 'Unknown';
         if (!platforms[plat]) platforms[plat] = { omzet: 0, profit: 0, cost: 0, transactions: 0, refunds: 0 };
-        
+
         platforms[plat].omzet += (Number(item.price_before) || 0);
         platforms[plat].profit += (Number(item.price_after) || 0);
         platforms[plat].cost += (Number(item.admin_fee) || 0) + (Number(item.service_fee) || 0) + (Number(item.transaction_fee) || 0) + (Number(item.campaign_fee) || 0);
         platforms[plat].transactions += 1;
         if (item.is_refund) platforms[plat].refunds += 1;
     });
-    
+
     // Sort platforms by profit DESC
     const platformData = Object.entries(platforms)
         .map(([name, stats]) => ({ name, ...stats }))
         .sort((a, b) => b.profit - a.profit);
-    
+
     // Courier analysis
     const couriers: Record<string, number> = {};
     data.forEach(item => {
@@ -58,12 +58,12 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
         // Use invoice_made as the date, or created_at if null/empty
         const dateRaw = (item.invoice_made ? String(item.invoice_made).substring(0, 10) : null) || (item.created_at ? String(item.created_at).substring(0, 10) : 'Unknown Date');
         const plat = item.platform || 'Unknown';
-        
+
         if (!chartDataMap[dateRaw]) chartDataMap[dateRaw] = {};
         if (!chartDataMap[dateRaw][plat]) chartDataMap[dateRaw][plat] = { revenue: 0, orders: 0, cancellations: 0 };
-        
+
         chartDataMap[dateRaw][plat].revenue += (Number(item.price_after) || 0);
-        
+
         if (item.is_refund) {
             chartDataMap[dateRaw][plat].cancellations += 1;
         } else {
@@ -87,36 +87,36 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
 
     const sortedDates = Object.keys(chartDataMap).sort();
     const recentDates = sortedDates.slice(-30); // Last 30 periods to fit the layout
-    
+
     let maxChartValue = 0;
     const finalChartData = recentDates.map(date => {
         const dayData = chartDataMap[date];
         let dayTotal = 0;
         const platformValues: Record<string, number> = {};
-        
+
         Object.entries(dayData).forEach(([plat, metrics]) => {
             const val = chartFilter === 'revenue' ? metrics.revenue :
-                        chartFilter === 'orders' ? metrics.orders :
-                        metrics.cancellations;
+                chartFilter === 'orders' ? metrics.orders :
+                    metrics.cancellations;
             platformValues[plat] = val;
             dayTotal += val;
         });
-        
+
         if (dayTotal > maxChartValue) maxChartValue = dayTotal;
-        
+
         return {
             date,
             total: dayTotal,
             platforms: platformValues
         };
     });
-    
+
     if (maxChartValue === 0) maxChartValue = 1; // Prevent division by zero
 
     return (
         <>
             <Head title="Dashboard" />
-            
+
             {/* Metric Cards */}
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Omzet Kotor */}
@@ -195,7 +195,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                                 <div key={idx} className="group relative bg-surface-container-low rounded-2xl p-5 transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 overflow-hidden cursor-default border border-transparent hover:border-surface-container-high">
                                     <div className="flex items-center justify-between relative z-10">
                                         <div className="flex items-center gap-4">
-                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm overflow-hidden ${getPlatformIconColor(plat.name,idx)}`}>
+                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm overflow-hidden ${getPlatformIconColor(plat.name, idx)}`}>
                                                 {icon ? (
                                                     <img
                                                         src={icon}
@@ -214,7 +214,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                                             <p className="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider mt-0.5"> Profit </p>
                                         </div>
                                     </div>
-                                    
+
                                     {/* Hover Details Panel */}
                                     <div className="grid grid-cols-3 gap-4 pt-4 mt-4 border-t border-surface-container-high/50 opacity-0 max-h-0 translate-y-4 group-hover:opacity-100 group-hover:max-h-40 group-hover:translate-y-0 transition-all duration-500 ease-in-out pointer-events-none group-hover:pointer-events-auto">
                                         <div className="bg-surface-container-lowest p-3 rounded-lg">
@@ -255,7 +255,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                     <h3 className="text-lg font-bold text-on-surface mb-6">Courier Analysis</h3>
                     <div className="flex-1 flex items-center justify-center relative">
                         {/* Dynamic Circular Chart */}
-                        <div 
+                        <div
                             className="relative w-32 h-32 shrink-0 rounded-full flex items-center justify-center"
                             style={{ background: `conic-gradient(var(--color-secondary-40) ${topCourierPercentage}%, var(--color-primary-container) 0)` }}
                         >
@@ -269,7 +269,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                         {courierData.slice(0, 2).map((c, i) => (
                             <div key={i} className="flex justify-between items-center text-xs">
                                 <span className="flex items-center gap-2">
-                                    <span className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-primary-container' : 'bg-secondary-40'}`}></span> 
+                                    <span className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-primary-container' : 'bg-secondary-40'}`}></span>
                                     {c.name}
                                 </span>
                                 <span className="font-bold">{c.orders} orders</span>
@@ -299,9 +299,9 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                                 <span className="text-[10px] font-bold text-tertiary/60 uppercase tracking-widest">+0 today</span>
                             </div>
                         </div>
-                        
+
                         <div className="h-px bg-surface-container-high/50 w-full"></div>
-                        
+
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -328,15 +328,15 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                         <p className="text-sm text-on-surface-variant mt-1">Platform performance comparison over the last 30 days</p>
                     </div>
                     <div className="flex items-center gap-1 bg-surface-container-low p-1 rounded-full">
-                        <button 
+                        <button
                             onClick={() => setChartFilter('revenue')}
                             className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${chartFilter === 'revenue' ? 'bg-white text-on-surface shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
                         >Revenue</button>
-                        <button 
+                        <button
                             onClick={() => setChartFilter('orders')}
                             className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${chartFilter === 'orders' ? 'bg-white text-on-surface shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
                         >Orders</button>
-                        <button 
+                        <button
                             onClick={() => setChartFilter('cancellations')}
                             className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${chartFilter === 'cancellations' ? 'bg-white text-on-surface shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
                         >Cancellations</button>
@@ -357,7 +357,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                     {/* Dynamic Abstract Bars */}
                     {finalChartData.map((day, idx) => {
                         const heightPercent = Math.max((day.total / maxChartValue) * 100, 2); // min 2% height for visibility
-                        
+
                         return (
                             <div key={idx} className="flex-1 flex flex-col justify-end group/bar relative h-full rounded-t-lg transition-all duration-300 hover:bg-surface-container-high/30 px-0.5">
                                 {/* Tooltip */}
@@ -365,7 +365,7 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                                     <p className="font-bold text-center mb-0.5">{day.date}</p>
                                     <p className="opacity-90">{chartFilter === 'revenue' ? `Rp ${day.total.toLocaleString('id-ID')}` : `${day.total} ${chartFilter}`}</p>
                                 </div>
-                                
+
                                 {/* Stacked bar segments */}
                                 <div className="w-full flex flex-col justify-end rounded-t-lg overflow-hidden group-hover/bar:ring-2 ring-primary/20 transition-all duration-500 ease-out" style={{ height: `${heightPercent}%` }}>
                                     {platformData.map((p, pIdx) => {
@@ -374,14 +374,14 @@ export default function Dashboard({ data = [] }: { data: any[] }) {
                                         const segmentHeight = (platVal / day.total) * 100;
                                         const colorClass = getPlatformColor(p.name, pIdx);
                                         return (
-                                            <div key={p.name} className={`w-full transition-all duration-500 ${colorClass}`} style={{ height: `${segmentHeight}%` }} title={`${p.name}: ${chartFilter === 'revenue' ? 'Rp '+platVal.toLocaleString() : platVal}`}></div>
+                                            <div key={p.name} className={`w-full transition-all duration-500 ${colorClass}`} style={{ height: `${segmentHeight}%` }} title={`${p.name}: ${chartFilter === 'revenue' ? 'Rp ' + platVal.toLocaleString() : platVal}`}></div>
                                         );
                                     })}
                                 </div>
                             </div>
                         );
                     })}
-                    
+
                     {/* Fill empty bars if less than 30 dates */}
                     {Array.from({ length: Math.max(0, 30 - finalChartData.length) }).map((_, idx) => (
                         <div key={`empty-${idx}`} className="flex-1 h-full"></div>

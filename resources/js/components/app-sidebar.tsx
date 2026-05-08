@@ -31,6 +31,11 @@ const mainNavItems: NavItem[] = [
         href: '/analytics',
         icon: FileText,
     },
+    {
+        title: 'Customer',
+        href: '/customer',
+        icon: Person,
+    },
 ];
 
 export function AppSidebar() {

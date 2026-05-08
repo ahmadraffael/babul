@@ -40,7 +40,7 @@ export default function ImportData() {
                                         className={`group relative overflow-hidden py-6 rounded-3xl font-black flex flex-col items-center gap-3 transition-all ${data.platform === 'shopee' ? 'bg-primary text-white shadow-2xl shadow-primary/30 scale-100' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high scale-[0.98]'}`}
                                     >
                                         <span className="material-symbols-outlined text-3xl">shopping_bag</span>
-                                        <span className="tracking-widest uppercase text-xs">Shopee Marketplace</span>
+                                        <span className="tracking-widest uppercase text-xs">Shopee</span>
                                         {data.platform === 'shopee' && <div className="absolute top-2 right-2 w-2 h-2 bg-white rounded-full"></div>}
                                     </button>
                                     <button 
@@ -49,7 +49,7 @@ export default function ImportData() {
                                         className={`group relative overflow-hidden py-6 rounded-3xl font-black flex flex-col items-center gap-3 transition-all ${data.platform === 'tokopedia' ? 'bg-primary text-white shadow-2xl shadow-primary/30 scale-100' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high scale-[0.98]'}`}
                                     >
                                         <span className="material-symbols-outlined text-3xl">storefront</span>
-                                        <span className="tracking-widest uppercase text-xs">Tokopedia Global</span>
+                                        <span className="tracking-widest uppercase text-xs">Tokopedia</span>
                                         {data.platform === 'tokopedia' && <div className="absolute top-2 right-2 w-2 h-2 bg-white rounded-full"></div>}
                                     </button>
                                 </div>

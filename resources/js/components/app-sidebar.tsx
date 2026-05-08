@@ -1,5 +1,5 @@
 import { Link, router } from '@inertiajs/react';
-import { Home, FileText, LayoutGrid, LogOut, Plus, ShoppingBasket } from 'lucide-react';
+import { Home, FileText, LayoutGrid, LogOut, Plus, ShoppingBasket, Users2 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
 import {
@@ -34,7 +34,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Customer',
         href: '/customer',
-        icon: Person,
+        icon: Users2,
     },
 ];
 

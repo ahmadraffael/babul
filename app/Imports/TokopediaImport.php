@@ -16,28 +16,28 @@ class TokopediaImport implements ToCollection
             if (!$row[43]) continue; // Buyer Username
 
             Transaction::create([
-                'customer' => $row[AR],
-                'product' => $row[H] ?? null,
-                'buy_qtt' => (int) ($row[J] ?? 0),  
-                'location_city' => $row[AX] ?? null,
-                'location_regency' => $row[AW] ?? null,
+                'customer' => $row[43],
 
-                'invoice_made' => $row[AD],
-                'payment_method' => $row[BC],
-                'invoice_paid' => $row[AE],
+                'invoice_made' => $row[29],
+                'invoice_paid' => $row[30],
 
-                'price_before' => (int) ($row[L] ?? 0),
-                'price_discount' => (int) ($row[N] ?? 0),
-                'fees' => 
-                    (int) ($row['Y'] ?? 0) +
-                    (int) ($row['AA'] ?? 0),
-                'price_after' => (int) ($row[AC] ?? 0),
+                'price_before' => (int) $row[28],
 
-                'cost_fee' => (int) ($row[R] ?? 0),
-                'cost_fee_after' => (int) ($row[T] ?? 0),
-                'shipping_provider' => $row[AP] ?? null,
+                'price_after' => 
+                    (int) $row[28]
+                    - (int) $row[24] 
+                    - (int) $row[25]
+                    - (int) $row[22], 
+                'admin_fee' => (int) $row[25],
+                'service_fee' => (int) $row[24],
+                'transaction_fee' => 0,
+                'campaign_fee' => 0,
 
-                'is_refund' => ($row[D] > 0) ? 1 : 0,
+                'shipping_provider' => $row[41],
+
+                'payment_method' => $row[54],
+
+                'is_refund' => ($row[22] > 0) ? 1 : 0,
 
                 'platform' => 'tokopedia',
             ]);
